@@ -1,2 +1,1 @@
-# nextjs-ecommerce
-# nextjs-ecommerce
+read me 
