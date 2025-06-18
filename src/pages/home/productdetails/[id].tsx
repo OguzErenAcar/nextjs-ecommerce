@@ -1,11 +1,14 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 
-function productdetails() {
+function Productdetails() {
+  const router = useRouter();
+  const {id} =router.query;
   return (
     <div>
-      productdetails
+      {id}
     </div>
   )
 }
 
-export default productdetails
+export default Productdetails

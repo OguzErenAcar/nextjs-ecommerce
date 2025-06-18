@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import styles from "../../styles/home.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Button from '@mui/material/Button';
 import {useRouter} from "next/router";
-import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import FavIcon from "../../components/FavIcon"
 type Product = {
   id: number;
   title: string;
@@ -23,16 +23,22 @@ type Product = {
 export default function Index({data}:{data:Product[]}) { 
   const router =useRouter()
  
-  const switchFav=(element:SVGSVGElement)=>{
-   element.style.color = element.style.color === 'red' ? 'gray' : 'red';
+ 
+  const onFocusSrch=(e:ChangeEvent<HTMLInputElement>)=>{
+    const y=e.currentTarget.getBoundingClientRect().top;
+    window.scrollTo({
+      top: y-30,           
+      behavior: 'smooth'   
+    })
   }
+
 
 
   return (
     <div className={styles.containerhome}>
       <div className={styles.searchcont}>
         <div className={styles.searchcontdiv}>
-          <input className={styles.search} placeholder="entry text"></input>
+          <input onFocus={onFocusSrch} className={styles.search} placeholder="entry text"></input>
           <button className={styles.searchbtn} >
             start
           </button>
@@ -52,9 +58,8 @@ export default function Index({data}:{data:Product[]}) {
                 height={0}/> 
               </Link>
               <span><h3 className="inline">{item.title.substring(0,10)}...</h3>
-                 <StarOutlineIcon onClick={(element:React.MouseEvent<SVGSVGElement>)=>{switchFav(element.currentTarget)}} className="block" />
-              </span>
-             
+               <FavIcon  className="block"/>  
+              </span> 
             </div>
           ))}
         </div>
