@@ -1,26 +1,25 @@
 .navbar {
- position: absolute;
- top: 0;
- background-color:bisque;
- a{
-    text-decoration:none ; 
-    } 
-  height: 30px;
+  position: absolute;
+  top: 0;
+  background-color: bisque;
+  a {
+    text-decoration: none;
+  }
+  height: 50px;
   display: flex;
   align-items: center;
   position: relative;
-  
+
   .Logo {
-      margin-left: 30px;
-     left: 0;
-}
-div {
+    margin-left: 30px;
+    left: 0;
+  }
+  div {
     display: flex;
     justify-content: space-between;
-    width: 150px;
+    width: 250px;
     position: absolute;
-    right: 0; 
+    right: 0;
     margin-right: 30px;
-   
   }
 }
