@@ -1,10 +1,20 @@
-import React, { Component } from 'react'
+import { useAuth } from '@/contexts/authContext'
+import { Button } from '@mui/material'
+import React from 'react'
 
-export default class Profile extends Component {
-  render() {
-    return (
-      <div>Profile</div>
-    )
+
+function profile() {
+
+  const auth = useAuth()
+  const Logout=()=>{
+    auth?.setProfile(null)
   }
-  
+
+  return (
+    <div>
+      <Button onClick={Logout} sx={{backgroundColor:"red", color:"white"}} >Logout</Button>    
+    </div>
+  )
 }
+
+export default profile

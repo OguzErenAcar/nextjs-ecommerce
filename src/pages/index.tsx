@@ -15,9 +15,10 @@ import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import ForgotPassword from '../components/ForgotPassword'; 
 import { GoogleIcon, FacebookIcon} from '../components/CustomIcons';
-import {useRouter} from "next/router";
-
-
+import {useRouter} from "next/router"; 
+import {Profile} from '../models/Profile';
+import { useAuth } from '@/contexts/authContext';
+ 
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -71,6 +72,10 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
+  const router=useRouter()
+ 
+  const auth=useAuth()
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -91,9 +96,34 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
     });
   };
 
-  let router=useRouter();
-  const validateInputs = () => {
-    router.push("/home"); 
+ ; 
+
+
+  const Login=()=>{
+  const formData=new FormData();
+    formData.append('Email',"hello");
+    formData.append('Password',"1234");
+    console.log(`${process.env.NEXT_PUBLIC_API_DOMAIN}`) 
+
+     fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN}/api/Account/getLogin`,{
+      method:'POST',
+      body:formData
+     }).then((res)=>{
+      if(!res.ok)
+        throw new Error("failed Login")
+      return res.json() 
+     }).then((data) => {
+      console.log("Giriş başarılı:", data);
+
+        return router.push(router.pathname+"home")
+      })
+      .catch((err) => {
+        console.error("Hata:", err);
+      });
+  }
+
+
+  const validateInputs = () => { 
     const email = document.getElementById('email') as HTMLInputElement;
     const password = document.getElementById('password') as HTMLInputElement;
 
@@ -115,7 +145,22 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
     } else {
       setPasswordError(false);
       setPasswordErrorMessage('');
-    }
+    } 
+      const user:Profile={
+          ProfileId:0,
+          Email:"oguz", 
+          img_uri:"https://www.mediastorehouse.com/p/629/portrait-funny-orang-utan-19289621.jpg.webp",
+          isActive:true
+      }
+
+      
+      //getLogin must get profile 
+      //and profile must add to stroge 
+      //finally rtk 
+      // Login() 
+      auth?.setProfile(user)
+      return router.push(router.pathname+"home")
+      
 
     return isValid;
   };

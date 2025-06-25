@@ -6,13 +6,18 @@ import navbar from "@/components/navbar";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import { useCart } from "@/contexts/cartContext";
 import { Badge } from "@mui/material";
+import Image from "next/image";
+import { useAuth } from "@/contexts/authContext";
+
 
 function Navbar() {
   const encpath = usePathname() || "";
   const decPath = decodeURIComponent(encpath);
   const outSider = ["/auth", "/login", "/signin"];
   const Cart: any = useCart();
-  const cartsizeRef = useRef(Cart.cart.length);
+  const cartsizeRef = useRef(Cart.cart.length);  
+
+  const auth= useAuth(); 
 
   useEffect(() => {
     cartsizeRef.current = Cart.cart.length;
@@ -24,18 +29,14 @@ function Navbar() {
   //aktif link yap
   return (
     <div className={styles.navbar}>
-      <Link href="/">
-        {" "}
-        <span>QWE</span>{" "}
+      <Link href="/"> 
+        <span>QWE</span> 
+      </Link> 
+      <Link href="/home"> 
+        <span className={styles.Logo}>Home</span> 
       </Link>
-
-      <Link href="/home">
-        {" "}
-        <span className={styles.Logo}>Home</span>{" "}
-      </Link>
-      <div>
-        <Link href="/cart">
-          {" "}
+      <div className={styles.rightgroup}>
+        <Link href="/cart"> 
           <span>
             <Badge badgeContent={cartsizeRef.current} color="warning">
               <LocalGroceryStoreIcon />
@@ -43,13 +44,11 @@ function Navbar() {
               Cart
           </span> 
         </Link>
-        <Link href="/favorites">
-          {" "}
-          <span>Favorites</span>{" "}
+        <Link href="/favorites"> 
+          <span>Favorites</span> 
         </Link>
-        <Link href="/profile">
-          {" "}
-          <span>Profile</span>{" "}
+        <Link href="/profile"> 
+          <Image className="rounded-full" src={auth?.profile?.img_uri?? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} width={50} height={50} alt=""/>
         </Link>
       </div>
     </div>
