@@ -29,19 +29,20 @@ function Navbar() {
   //aktif link yap
   return (
     <div className={styles.navbar}>
-      <Link href="/"> 
+     <div className={styles.leftgroup}>
+     <Link href="/"> 
         <span>QWE</span> 
       </Link> 
       <Link href="/home"> 
         <span className={styles.Logo}>Home</span> 
       </Link>
+     </div>
       <div className={styles.rightgroup}>
         <Link href="/cart"> 
           <span>
             <Badge badgeContent={cartsizeRef.current} color="warning">
               <LocalGroceryStoreIcon />
             </Badge>
-              Cart
           </span> 
         </Link>
         <Link href="/favorites"> 

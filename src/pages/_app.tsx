@@ -14,14 +14,19 @@ function _app({ Component, pageProps }:{ Component:any, pageProps:any }) {
 
  
  const hideNavbarOn=["/","/login","/signin","/createprofile"]
- const ShowNavbar = !hideNavbarOn.includes(router.pathname) 
+ const BasicPages = !hideNavbarOn.includes(router.pathname) 
  
  return (
     <Provider store={store}>
     <AuthContext> 
     <CartContext>
-     {ShowNavbar&& <Navbar/> }
-      <Component {...pageProps}/>
+     {BasicPages&& <Navbar/> }
+      <div className= {BasicPages?"flex justify-center":""}>
+        <div className={BasicPages?"w-[80%]":""}>
+      <Component  {...pageProps}/>
+        </div>
+
+      </div> 
     </CartContext>
     </AuthContext>
     </Provider>

@@ -1,10 +1,10 @@
 .navbar {
-  position: absolute;
-  top: 0;
-  background-color: bisque;
+  
+
   a {
     text-decoration: none;
-  }
+  } 
+  background-color: rgb(196, 255, 218);
   height: 100px;
   display: flex;
   align-items: center;
@@ -14,13 +14,17 @@
     margin-left: 30px;
     left: 0;
   }
+  .leftgroup {
+    position: absolute;
+    left: 20px; 
+  }
   .rightgroup {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 250px;
     position: absolute;
-    right: 0;
-    margin-right: 30px;
+    right: 20px;
+    
   }
 }
