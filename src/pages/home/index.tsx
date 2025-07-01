@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 import FavIcon from "../../components/FavIcon";
 import { Product } from "@/models/Product";
 import {useCart} from "../../contexts/cartContext"
+import { useSelector } from "react-redux";
+import { RootState } from '../../redux/configure';
 
 
 
@@ -16,7 +18,6 @@ import {useCart} from "../../contexts/cartContext"
 export default function Index({ data }: { data: Product[] }) {
   const router = useRouter();
   const Cart:any =useCart();
-
 
   const onFocusSrch = (e: ChangeEvent<HTMLInputElement>) => {
     const y = e.currentTarget.getBoundingClientRect().top;

@@ -1,9 +1,12 @@
 import {configureStore} from "@reduxjs/toolkit"
 import  authSlice  from "./stores/authStore";
+import { ScreenSettingsSlice } from "./stores/screenSettStore";
+
 
 export const store =configureStore({
     reducer:{
-        auth:authSlice
+        auth:authSlice,
+        screen:ScreenSettingsSlice.reducer
     }
 });
 

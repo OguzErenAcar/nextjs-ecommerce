@@ -1,11 +1,11 @@
 import { useAuth } from "@/contexts/authContext";
 import { Button } from "@mui/material";
 import React, { useRef, useEffect } from "react";
-import UserInfo from '../components/UserInfo';
+import UserInfo from '../components/ProfileComps/UserInfo';
 import { createRoot,Root } from 'react-dom/client';
-import Orders from "@/components/Orders";
-import Address from "@/components/Address";
-import MyCards from "@/components/MyCards"; 
+import Orders from "@/components/ProfileComps/Orders";
+import Address from "@/components/ProfileComps/Address";
+import MyCards from "@/components/ProfileComps/MyCards"; 
 
 
 function Profile() {
@@ -29,10 +29,10 @@ function Profile() {
 
   return (
     
-    <div className="relative"> 
-    <div className="flex justify-center">
-      <div className="  flex justify-between   mt-20  w-[100%] ">
-       <div className="w-[25%] h-[200px] sticky top-0  overflow-auto">
+    <div className="relative  "> 
+    <div className="flex justify-center   ">
+      <div className="  flex    mt-20  justify-between w-full">
+       <div className="w-[25%] h-[200px] sticky top-0   overflow-auto">
         <ul className=" text-center mt-3 ">
           <li>
             <Button  onClick={()=>{ComponentBtn(<UserInfo/>)}} className="w-full">User Information</Button>
@@ -53,8 +53,8 @@ function Profile() {
           </li> 
         </ul>
       </div>
-        <div className="w-[70%] h-[500px] relative rounded-lg  top-0 right-0  bg-slate-100">
-         <div ref={container} className=" absolute left-10 w-[90%]"> 
+        <div className="w-[70%] h-[500px] relative rounded-lg  top-0    bg-slate-100">
+         <div ref={container} className=" absolute left-5 w-[95%]"> 
          </div>
         </div> 
       </div>

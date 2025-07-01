@@ -7,7 +7,7 @@ export default class Favorites extends Component {
         <div className=''>
           <span>Favorites</span>
           <div className='flex justify-center ' >
-          <div className=' flex flex-col justify-between h-[2000px]' >
+          <div className=' flex flex-col justify-between bg-red-100 h-[2000px]' >
             {/* must grid */}
           <ProductRow/>
           <ProductRow/>

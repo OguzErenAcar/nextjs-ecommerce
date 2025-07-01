@@ -1,5 +1,5 @@
 import React from 'react'
-import AddressCard from './AddressCard'
+import AddressCard from '../AddressCard'
 AddressCard
 function Address() {
   return (

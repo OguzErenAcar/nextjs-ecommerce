@@ -24,7 +24,6 @@ function AuthContext({children}:{children:React.ReactNode}) {
 
 
     useEffect(()=>{
-        console.log(profile)
         if(profile)
             localStorage.setItem('Profile',JSON.stringify(profile))
         else
