@@ -1,11 +1,12 @@
 import { useAuth } from "@/contexts/authContext";
 import { Button } from "@mui/material";
-import React, { useRef, useEffect } from "react";
+import React, { useState , } from "react";
 import UserInfo from '../components/ProfileComps/UserInfo';
-import { createRoot,Root } from 'react-dom/client';
 import Orders from "@/components/ProfileComps/Orders";
 import Address from "@/components/ProfileComps/Address";
 import MyCards from "@/components/ProfileComps/MyCards"; 
+import { useSelector } from "react-redux";
+import { RootState } from '../redux/configure';
 
 
 function Profile() {
@@ -14,28 +15,29 @@ function Profile() {
   const Logout = () => {
     auth?.setProfile(null);
   };
+  const widthScreen =useSelector((state:RootState)=>state.screen.width)
   
-  const container= useRef<HTMLDivElement | null>(null); 
-  const rootRef = useRef<Root|null>(null);
+  const buttonsListWidth=200
+  const compWidth=900
+  const spaceWidth=40
+  const sumWidth=buttonsListWidth+compWidth+spaceWidth
   
-  useEffect(()=>{
-    if(container.current&&!rootRef.current)
-      rootRef.current=createRoot(container.current)
-  },[])
+  const compHeight=500;
+  const [activeComponent, setActiveComponent] = useState<React.ReactNode>(<UserInfo height={compHeight} />);
 
-  const ComponentBtn=(element:React.JSX.Element)=>{
-       if(rootRef.current) rootRef.current.render(element)
-  } 
+  const ComponentBtn = (element: React.ReactNode) => {
+    setActiveComponent(element);
+  };
 
   return (
     
-    <div className="relative  "> 
-    <div className="flex justify-center   ">
-      <div className="  flex    mt-20  justify-between w-full">
-       <div className="w-[25%] h-[200px] sticky top-0   overflow-auto">
+    <div className="relative    "> 
+    <div className={`flex justify-center `}>
+      <div style={{minWidth:sumWidth}} className={` flex  mt-20  justify-between   w-full`}>
+       <div  style={{width:buttonsListWidth}} className={`h-[200px]  bg-slate-100 sticky top-0  left-0  "`}>
         <ul className=" text-center mt-3 ">
           <li>
-            <Button  onClick={()=>{ComponentBtn(<UserInfo/>)}} className="w-full">User Information</Button>
+            <Button  onClick={()=>{ComponentBtn(<UserInfo height={compHeight}/>)}} className="w-full">User Information</Button>
           </li>
           <li>
            <Button onClick={()=>{ComponentBtn(<Orders/>)}} className="w-full">Orders</Button> 
@@ -53,10 +55,11 @@ function Profile() {
           </li> 
         </ul>
       </div>
-        <div className="w-[70%] h-[500px] relative rounded-lg  top-0    bg-slate-100">
-         <div ref={container} className=" absolute left-5 w-[95%]"> 
+        <div style={{width:compWidth,height:compHeight }} className={` flex justify-center  rounded-lg  bg-slate-100`}>
+         <div style={{width:compWidth*95/100 }} className="">
+            {activeComponent}
          </div>
-        </div> 
+        </div>
       </div>
     </div> 
     </div>

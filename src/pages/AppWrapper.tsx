@@ -15,29 +15,39 @@ function AppWrapper({ Component, pageProps }: { Component: any; pageProps: any }
   const BasicPages = !hideNavbarOn.includes(router.pathname);
   
   const widthScreen =useSelector((state:RootState)=>state.screen.width)
-  
+ 
+ 
+  const spaceWidthmultiple=8/10
+
   useEffect(() => {
-    dispatch(settWidth(screen.width))
-  }, []); 
+    dispatch(settWidth(screen.width*spaceWidthmultiple))
+  }, []);
+  
+  
+ 
+
+  const Box = styled("div")({  
+      display: "flex",
+    justifyContent: "center",
+  });
 
   const Container = styled("div")({
-    width: "100vm",
-    display: "flex",
-    justifyContent: "center", 
+  
+  "@media (max-width: 1200px)": {
+    width: widthScreen,
+  },
+   
   });
 
-  const Box = styled("div")({
-    width: widthScreen *8/10,
-  });
  
     return (
     <div >
-       {BasicPages && <Navbar />}
-          <Container> 
-            <Box  >
+        {BasicPages && <Navbar />}
+          <Box > 
+            <div style={{width: widthScreen}}>
               <Component {...pageProps} />
-            </Box>
-          </Container>
+            </div>
+          </Box>
     </div>
   )
 }
