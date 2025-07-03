@@ -103,6 +103,8 @@ function Profile() {
 
   const ComponentBtn = (element: React.ReactNode) => {
     setActiveComponent(element);
+        settDrawer(true);
+
   };
   function MenuButtons({children}:{children?:React.ReactNode|null}) {
     return (
