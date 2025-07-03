@@ -6,7 +6,7 @@ import {Formik,Field , Form, FormikHelpers} from 'formik'
 import { json } from 'stream/consumers';
 
 
-function UserInfo({height}:{height:number}) {
+function UserInfo() {
   //telefon ve şifre ekle ,burası bilgi güncelleme sayfası 
 
   const widthScreen =useSelector((state:RootState)=>state.screen.width)
@@ -34,9 +34,9 @@ interface PasswordValues{
   }
   
   return (
-    <div className='w-full '>
-      <div className=' flex justify-between '>
-      <div style={{width:widthScreen*33/100 ,height:height}} className={` py-3 sm:max-w-xl`}>
+    <div style={{height:600}} className='w-full flex items-center '>
+      <div className=' flex justify-between h-[95%]  '>
+      <div style={{width:'45%' }} className={`  sm:max-w-xl`}>
         <div className=" h-full relative bg-white mx-8 md:mx-0 shadow rounded-l sm:p-10" >
           <div className="max-w-md mx-auto">
           <Formik <Values>
@@ -115,7 +115,7 @@ interface PasswordValues{
           </div>
         </div>
       </div>
-      <div style={{width:widthScreen*33/100 ,height:height}} className=" py-3 sm:max-w-xl ">
+      <div style={{width:'45%'}} className="  sm:max-w-xl ">
         <div className="h-full relative  bg-white mx-8 md:mx-0 shadow rounded-l sm:p-10" >
           <Formik <PasswordValues>
             initialValues={{

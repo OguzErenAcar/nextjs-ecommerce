@@ -3,10 +3,12 @@ import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 
 
 type StateType={
-    width:number
+    width:number,
+    height:number
 }
  const initialState={
-    width:0
+    width:0,
+    height:0
  }
 
 export const ScreenSettingsSlice=createSlice({
@@ -15,10 +17,12 @@ export const ScreenSettingsSlice=createSlice({
     ,reducers:{
         settWidth:(state,action:PayloadAction<number>)=>{
             state.width=action.payload
-            console.log(state.width)
+        },
+        settHeight:(state,action:PayloadAction<number>)=>{
+            state.height=action.payload
         }
     }
 })
 
 export default ScreenSettingsSlice.reducer
-export const {settWidth}=ScreenSettingsSlice.actions
+export const {settWidth,settHeight}=ScreenSettingsSlice.actions

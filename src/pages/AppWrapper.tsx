@@ -2,9 +2,9 @@ import CartContext from "../contexts/cartContext";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { store, RootState } from '../redux/configure';
 import { styled } from "@mui/material";
-import { settWidth } from "@/redux/stores/screenSettStore";
+import { settWidth,settHeight } from "@/redux/stores/screenSettStore";
 import Navbar from "@/components/navbar";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect} from "react";
 import { useRouter } from "next/router";
 
 function AppWrapper({ Component, pageProps }: { Component: any; pageProps: any }) {
@@ -21,6 +21,7 @@ function AppWrapper({ Component, pageProps }: { Component: any; pageProps: any }
 
   useEffect(() => {
     dispatch(settWidth(screen.width*spaceWidthmultiple))
+    dispatch(settHeight(screen.height))
   }, []);
    
 
@@ -28,22 +29,13 @@ function AppWrapper({ Component, pageProps }: { Component: any; pageProps: any }
       width:"100%",
       display: "flex",
     justifyContent: "center",
-  });
-
-  const Container = styled("div")({
-  
-    "@media (max-width: 1200px)": {
-    width: 1200,
-  },
-   
-  });
-
+  });  
  
     return (
     <div style={{width:isFlexPage?"":(widthScreen/spaceWidthmultiple)*10.9/10}} >
         {BasicPages && <Navbar />}
           <FlexBox >  
-            <div style={{width:isFlexPage?"90%":widthScreen}}>
+            <div style={{width:widthScreen}}>
               <Component {...pageProps} /> 
             </div>
           </FlexBox>
