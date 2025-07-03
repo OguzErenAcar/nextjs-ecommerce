@@ -1,5 +1,5 @@
 import { useAuth } from "@/contexts/authContext";
-import { Button, styled } from "@mui/material";
+import { Button, styled, useMediaQuery } from "@mui/material";
 import React, { useEffect, useState  } from "react";
 import UserInfo from '../components/ProfileComps/UserInfo';
 import Orders from "@/components/ProfileComps/Orders";
@@ -13,12 +13,11 @@ import { keyframes } from '@emotion/react';
 function Profile() {
 
   const widthScreen =useSelector((state:RootState)=>state.screen.width)
-  const heightScreen =useSelector((state:RootState)=>state.screen.height)
-   const widthWindow=useSelector((state:RootState)=>state.screen.settWidthUpdated)
+  const heightScreen =useSelector((state:RootState)=>state.screen.height) 
   const buttonsListWidth=widthScreen*0.2
-  const compWidth=widthScreen*0.70
-  
-
+  const compWidth=widthScreen*0.70 
+  const mobileQuery = `(max-width: ${buttonsListWidth + compWidth}px)`;
+  const isMobile = useMediaQuery(mobileQuery);
 
   const ContentContainer=styled('div')({
     display:"flex",
@@ -53,12 +52,9 @@ function Profile() {
         width:'95%'
         }
 
-  })
+  }) 
 
-
-
-
-  const [drawer, settDrawer] = useState<boolean>(true);
+  const [drawer, settDrawer] = useState<boolean>(false);
   const [drawerAnima,settdrawerAnima]=useState<boolean>(false)
   const fadeInLeft= keyframes`
       from { left: -190px; }
@@ -79,7 +75,7 @@ function Profile() {
             height:"100%",
             width:200,
             zIndex:1,
-            animation:drawerAnima?(drawer?`${fadeOutLeft} 0.3s forwards`:`${fadeInLeft} 0.3s forwards`):''
+            animation:drawerAnima?(drawer?`${fadeInLeft} 0.3s forwards`:`${fadeOutLeft} 0.3s forwards`):''
 
         }
   })
@@ -93,9 +89,12 @@ function Profile() {
      
   })
   
-  useEffect(()=>{
-
-  },[])
+  useEffect(() => {
+    if (!isMobile) {
+      settdrawerAnima(false);
+      settDrawer(false);
+    }
+  }, [isMobile]);
   
   const DmbOnclick=()=>{
     settdrawerAnima(true)
@@ -111,7 +110,7 @@ function Profile() {
 
   const ComponentBtn = (element: React.ReactNode) => {
     setActiveComponent(element);
-        settDrawer(true);
+        settDrawer(false);
 
   };
   function MenuButtons({children}:{children?:React.ReactNode|null}) {
@@ -141,7 +140,7 @@ function Profile() {
     )
   }
   return (
-    <div style={{height:heightScreen}} className="relative "> 
+    <div style={{height:heightScreen*2/3}} className="relative "> 
       <DrawerMenu>
       <DrawerMenuButton>
             <Button onClick={DmbOnclick}>

@@ -1,8 +1,7 @@
-import CartContext from "../contexts/cartContext";
-import { Provider, useDispatch, useSelector } from "react-redux";
-import { store, RootState } from '../redux/configure';
+ import {  useDispatch, useSelector } from "react-redux";
+import {   RootState } from '../redux/configure';
 import { styled } from "@mui/material";
-import { settWidth,settHeight,settWidthUpdated } from "@/redux/stores/screenSettStore";
+import { settWidth,settHeight   } from "@/redux/stores/screenSettStore";
 import Navbar from "@/components/navbar";
 import React, { useEffect} from "react";
 import { useRouter } from "next/router";
@@ -22,16 +21,7 @@ function AppWrapper({ Component, pageProps }: { Component: any; pageProps: any }
   useEffect(() => {
     dispatch(settWidth(screen.width*spaceWidthmultiple))
     
-    dispatch(settHeight(screen.height))
-
-    const handleResize=()=>{
-      dispatch(settWidthUpdated(window.innerWidth*spaceWidthmultiple))
-    }
-
-    window.addEventListener('resize',handleResize);
-    return ()=>{
-      window.removeEventListener('resize',handleResize)
-    }
+    dispatch(settHeight(screen.height)) 
 
   }, []);
    
