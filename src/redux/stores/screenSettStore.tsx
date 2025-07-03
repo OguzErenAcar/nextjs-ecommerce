@@ -8,7 +8,8 @@ type StateType={
 }
  const initialState={
     width:0,
-    height:0
+    height:0,
+    settWidthUpdated:0
  }
 
 export const ScreenSettingsSlice=createSlice({
@@ -20,9 +21,13 @@ export const ScreenSettingsSlice=createSlice({
         },
         settHeight:(state,action:PayloadAction<number>)=>{
             state.height=action.payload
+        },
+        settWidthUpdated:(state,action:PayloadAction<number>)=>{
+            state.settWidthUpdated=action.payload 
         }
+        
     }
 })
 
 export default ScreenSettingsSlice.reducer
-export const {settWidth,settHeight}=ScreenSettingsSlice.actions
+export const {settWidth,settHeight,settWidthUpdated}=ScreenSettingsSlice.actions

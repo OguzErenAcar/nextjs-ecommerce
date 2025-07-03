@@ -1,6 +1,6 @@
 import { useAuth } from "@/contexts/authContext";
 import { Button, styled } from "@mui/material";
-import React, { useState  } from "react";
+import React, { useEffect, useState  } from "react";
 import UserInfo from '../components/ProfileComps/UserInfo';
 import Orders from "@/components/ProfileComps/Orders";
 import Address from "@/components/ProfileComps/Address";
@@ -14,7 +14,7 @@ function Profile() {
 
   const widthScreen =useSelector((state:RootState)=>state.screen.width)
   const heightScreen =useSelector((state:RootState)=>state.screen.height)
-
+   const widthWindow=useSelector((state:RootState)=>state.screen.settWidthUpdated)
   const buttonsListWidth=widthScreen*0.2
   const compWidth=widthScreen*0.70
   
@@ -57,14 +57,15 @@ function Profile() {
 
 
 
-  const [drawer,settDrawer]=useState<boolean>(false);
-  const fadeInLeft= 
-  keyframes`
+
+  const [drawer, settDrawer] = useState<boolean>(true);
+  const [drawerAnima,settdrawerAnima]=useState<boolean>(false)
+  const fadeInLeft= keyframes`
       from { left: -190px; }
       to { left: 0; }
     `;
   const fadeOutLeft= keyframes`
-      from { left: 0; }
+      from { left: ${0}; }
       to { left: -190px; }
     `;
   const DrawerMenu=styled('div')({
@@ -78,11 +79,10 @@ function Profile() {
             height:"100%",
             width:200,
             zIndex:1,
-            animation:drawer?`${fadeOutLeft} 0.3s forwards`:`${fadeInLeft} 0.3s forwards`
+            animation:drawerAnima?(drawer?`${fadeOutLeft} 0.3s forwards`:`${fadeInLeft} 0.3s forwards`):''
 
         }
   })
-
 
   const DrawerMenuButton=styled('div')({
     position:'absolute',
@@ -92,7 +92,15 @@ function Profile() {
     zIndex:1
      
   })
+  
+  useEffect(()=>{
 
+  },[])
+  
+  const DmbOnclick=()=>{
+    settdrawerAnima(true)
+    settDrawer(!drawer)
+  }
 
   const auth = useAuth();
   const Logout = () => {
@@ -136,7 +144,7 @@ function Profile() {
     <div style={{height:heightScreen}} className="relative "> 
       <DrawerMenu>
       <DrawerMenuButton>
-            <Button onClick={()=>{settDrawer(!drawer)}}>
+            <Button onClick={DmbOnclick}>
               <ArrowForwardIosIcon/>
             </Button>
       </DrawerMenuButton>
