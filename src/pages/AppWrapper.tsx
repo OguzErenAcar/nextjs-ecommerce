@@ -33,7 +33,7 @@ function AppWrapper({ Component, pageProps }: { Component: any; pageProps: any }
   });  
  
     return (
-    <div style={{width:isFlexPage?"":(widthScreen/spaceWidthmultiple)*10.9/10}} >
+    <div   >
         {BasicPages && <Navbar />}
           <FlexBox >  
             <div style={{width:widthScreen}}>
