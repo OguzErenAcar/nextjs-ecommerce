@@ -1,75 +1,28 @@
-import React, { Component, useEffect, useRef, useState } from "react";
-import CartItem from "@/components/CartItem";
-import { Product } from "@/models/Product";
-import { useCart } from "@/contexts/cartContext";
-import { styled } from "@mui/material";
-import { useWindowSize } from 'usehooks-ts';
+import React, { Component } from "react"; 
+import CartItem from "@/components/cartItem";
 
-
-function Cart({ result }: { result: Product[] }) {
-  const { cart } = useCart();
-  
-  const {width,height}=useWindowSize();
-  
-  const Pr: Product = {
-    id: 101,
-    title: "Wireless Noise Cancelling Headphones",
-    slug: "wireless-noise-cancelling-headphones",
-    price: 149.99,
-    description:
-      "High-fidelity over-ear headphones with active noise cancellation and 30-hour battery life.",
-    category: {
-      id: 5,
-      name: "Electronics",
-      image: "https://fakeimg.pl/300x200/?text=Electronics",
-      slug: "electronics",
-    },
-    images: [
-      "https://fakeimg.pl/400x400/?text=Headphone+1",
-      "https://fakeimg.pl/400x400/?text=Headphone+2",
-      "https://fakeimg.pl/400x400/?text=Headphone+3",
-    ],
-  };
-
-  const arr: null[] = Array(10).fill(null);
-  const itemWidth = 300;
-  const itemHeight = 200;
- const columnCount = Math.trunc(width / (itemWidth + 14)); // gap = 14
-const rowCount = Math.ceil(arr.length / columnCount);
-  const GridDiv = styled('div')({
-    display:'flex',
-    alignItems:'center',
-    height:(rowCount*itemHeight)+200,
-  });
-  const Grid = styled("div")({
-    width: "100%",
-    display: "grid",
-    gap: 14,
-    gridTemplateColumns: `repeat(auto-fill,minmax(${itemWidth}px,1fr))`,
-    placeItems: "center",
-  });
-
+function Cart() {
+  const arr: null[] = Array(14).fill(null);
+  const itemHeight = 220;
+  const marginTop = 20;
   return (
-    <GridDiv>
-      <Grid >
-        {arr.map((_, i) => (
-          <CartItem
-            key={i}
-            width={itemWidth}
-            height={itemHeight}
-            product={Pr}
-          />
-        ))}
-      </Grid>
-    </GridDiv>
+    <div className="">
+      <span>Favorites</span>
+      <div
+        style={{ height: itemHeight * arr.length + marginTop * arr.length }}
+        className="flex justify-center items-center "
+      >
+        <div className=" w-full flex flex-col">
+          <CartItem height={itemHeight} />
+          {arr.slice(1, arr.length).map((el, i) => (
+            <div style={{ marginTop: marginTop }} key={i}>
+              <CartItem height={itemHeight} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
 export default Cart;
-
-export async function getServerSideProps() {
-  const response = await fetch("https://api.escuelajs.co/api/v1/products");
-  const result = await response.json();
-
-  return { props: { result } };
-}

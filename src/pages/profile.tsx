@@ -1,10 +1,10 @@
 import { useAuth } from "@/contexts/authContext";
 import { Button, styled, useMediaQuery } from "@mui/material";
 import React, { useEffect, useState  } from "react";
-import UserInfo from '../components/ProfileComps/UserInfo';
-import Orders from "@/components/ProfileComps/Orders";
-import Address from "@/components/ProfileComps/Address";
-import MyCards from "@/components/ProfileComps/MyCards"; 
+import UserInfo from '../components/ProfileComps/userInfo';
+import Orders from "@/components/ProfileComps/orders";
+import Address from "@/components/ProfileComps/address";
+import MyCards from "@/components/ProfileComps/myCards"; 
 import { useSelector } from "react-redux";
 import { RootState } from '../redux/configure';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';

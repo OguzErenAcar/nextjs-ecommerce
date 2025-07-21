@@ -1,24 +1,9 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import styles from "../../styles/home.module.scss";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import Button from "@mui/material/Button";
-import { useRouter } from "next/router";
-import FavIcon from "../../components/FavIcon";
-import { Product } from "@/models/Product";
-import {useCart} from "../../contexts/cartContext"
-import { useSelector } from "react-redux";
-import { RootState } from '../../redux/configure';
-
-
-
-
+import React, { ChangeEvent } from "react";
+import { Product } from "@/models/productModel";
+import ProductItem from "@/components/productItem";
+import { styled } from "@mui/material";
 
 export default function Index({ data }: { data: Product[] }) {
-  const router = useRouter();
-  const Cart:any =useCart();
-
   const onFocusSrch = (e: ChangeEvent<HTMLInputElement>) => {
     const y = e.currentTarget.getBoundingClientRect().top;
     window.scrollTo({
@@ -26,60 +11,48 @@ export default function Index({ data }: { data: Product[] }) {
       behavior: "smooth",
     });
   };
+  const SearchContDiv = styled("div")({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+  });
 
-  const AddBtn=({item}:{item:Product})=>{
-    const list = Cart.cart
+  const SearchBtn = styled("button")({
+    marginLeft: "2%",
+    textAlign: "center",
+    fontSize: "24px",
+  });
 
-    Cart.setCart([...list,item])
-    console.log(list.length)
-
-  }
-
+  const width=200;
+  const gap="20px 40px";
+  const Products = styled("div")({
+    display: "grid",
+    gridTemplateColumns: `repeat(auto-fill, minmax(${width-10}px, 1fr))`,
+    placeItems:'center',
+    gap: gap,
+  });
   return (
-    <div className={styles.containerhome}>
-      <div className={styles.searchcont}>
-        <div className={styles.searchcontdiv}>
+    <div className="block">
+      <div className="h-[100px]">
+        <SearchContDiv>
           <input
             onFocus={onFocusSrch}
-            className={styles.search}
+            className="w-[30]"
             placeholder="entry text"
           ></input>
-          <button className={styles.searchbtn}>start</button>
-        </div>
+          <SearchBtn>start</SearchBtn>
+        </SearchContDiv>
       </div>
-      <div className={styles.productcont}>
-        <div className={styles.productdiv}>
-          <div className={styles.products}>
-            {data.map((item) => (
-              <div className={styles.product} key={item.id}>
-                <Link href={router.pathname + "/productdetails/" + item.id}>
-                  <Image
-                    className={styles.img}
-                    src={item.images[0]}
-                    alt="Landscape picture"
-                    width={0}
-                    height={0}
-                  />
-                </Link>
-                <span>
-                  <h3 className="">{item.title.substring(0, 25)}...</h3>
-                  <Button
-                    sx={{
-                      height: 20,
-                      backgroundColor: "#4caf50",
-                      color: "white",
-                    }}
-                    onClick={() => AddBtn({ item })}
-                  >
-                   Add 
-                  </Button>
-                  <FavIcon className="block" />
-                </span>
-              </div>
+      <>
+        <div className="">
+          <Products>
+            {data.map((item, i) => (
+              <ProductItem product={item} width={200} height={300} key={i} />
             ))}
-          </div>
+          </Products>
         </div>
-      </div>
+      </>
     </div>
   );
 }

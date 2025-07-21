@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../configure' 
-import { Profile } from '../../models/Profile';
+import { Profile } from '../../models/profileModel';
 import { act } from 'react';
 
  

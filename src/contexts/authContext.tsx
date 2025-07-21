@@ -1,4 +1,4 @@
-import { Profile } from '@/models/Profile'
+import { Profile } from '@/models/profileModel'
 import React ,{createContext,useContext,useEffect,useState} from 'react'
  
 

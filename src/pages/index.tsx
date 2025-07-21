@@ -13,10 +13,10 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import ForgotPassword from '../components/ForgotPassword'; 
-import { GoogleIcon, FacebookIcon} from '../components/CustomIcons';
+import ForgotPassword from '../components/forgotPassword'; 
+import { GoogleIcon, FacebookIcon} from '../components/customIcons';
 import {useRouter} from "next/router"; 
-import {Profile} from '../models/Profile';
+import {Profile} from '../models/profileModel';
 import { useAuth } from '@/contexts/authContext';
  
 

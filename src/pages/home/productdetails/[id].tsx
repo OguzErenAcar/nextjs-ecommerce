@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { GetServerSidePropsContext } from "next";
-import { Product } from "@/models/Product";
+import { Product } from "@/models/productModel";
 import Image from "next/image";
 import Button from "@mui/material/Button";
 function Productdetails({ result }: { result: Product }) {

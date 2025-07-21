@@ -1,5 +1,5 @@
 import React, { createContext,useContext,useState } from "react";
- import { Product } from "@/models/Product";
+ import { Product } from "@/models/productModel";
 
 
 type CartContextType = {
