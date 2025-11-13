@@ -119,7 +119,7 @@ export default function AppAppBar() {
                 .filter((a) => a.onNavbar)
                 .map((el, i) => (
                   <Button
-                    onClick={() => goToLink(el.path)}
+                    onClick={() => el.path&&goToLink(el.path)}
                     key={i}
                     variant="text"
                     color="info"
@@ -165,7 +165,7 @@ export default function AppAppBar() {
                       <MenuItem>
                         <Button
                           className="w-full"
-                          onClick={() => goToLink(el.path)}
+                          onClick={() => el.path&&goToLink(el.path)}
                         >
                           {el.name}
                         </Button>

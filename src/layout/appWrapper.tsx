@@ -16,9 +16,15 @@ function AppWrapper({
   pageProps: any;
 }) {
   const path = useRouter().pathname;
-  const basePagePath=path.substring(1).split('/')[0] ||""
-  const page = pages.filter((el) => el.hasNavbar&&(el.path||el.path=="/"));
-  console.log(path.substring(1));
+  const basePagePath = path.substring(1).split("/")[0] || "";
+  const page =
+    path == "/"
+      ? pages[0]
+      : pages.filter(
+          (el, i) =>
+            el.hasNavbar && el.path && el.path != "/" && path.includes(el.path)
+        )[0];
+  console.log(page);
   const dispatch = useDispatch();
   const widthScreen = useSelector((state: RootState) => state.screen.width);
   const isFlexPage = true;
@@ -33,16 +39,13 @@ function AppWrapper({
   // }, []);
   return (
     <div>
-      {page[0]?.hasNavbar && (
+      {page && (
         <div className="h-[70px]">
           <NavBar />
         </div>
       )}
-      <div className="flex justify-center ">
-        <div className="w-[1300px]">
           <Component {...pageProps} />
-        </div>
-      </div>
+       
     </div>
   );
 }

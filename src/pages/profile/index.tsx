@@ -88,7 +88,8 @@ function Profile() {
   }
 
   return (
-    <div className="relative ">
+    <div className="flex justify-center mt-[40px]">
+          <div className="relative w-[80vw]">
       <Drawer/>
     <div className=" flex  justify-between w-full ">
         <div className="hidden lg:block">
@@ -98,6 +99,7 @@ function Profile() {
           <div>{activeComponent}</div>
         </div>
       </div> 
+    </div>
     </div>
   );
 }
