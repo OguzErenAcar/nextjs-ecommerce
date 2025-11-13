@@ -1,5 +1,5 @@
 import React, { Component } from "react"; 
-import CartItem from "@/components/cartItem";
+import CartItem from "@/components/cart/cartItem";
 
 function Cart() {
   const arr: null[] = Array(14).fill(null);

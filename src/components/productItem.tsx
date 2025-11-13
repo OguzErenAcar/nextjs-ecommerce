@@ -46,7 +46,7 @@ export default function ProductItem({
         className="max-w-sm border border-gray-300 rounded-lg shadow-lg bg-white "
       >
         <Productdiv style={{height:height}}>
-          <Link  href={router.pathname + "/productdetails/" + product.id}>
+          <Link  href={"/productdetails/" + product.id}>
             <Image
               style={{objectFit:'cover',height:'100%'}}
               src={product.images[0]}

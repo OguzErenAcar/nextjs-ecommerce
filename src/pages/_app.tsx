@@ -1,9 +1,9 @@
-import "@/styles/global.scss"; // yol dosya yapına göre değişebilir
+import "../styles/global.scss"; // yol dosya yapına göre değişebilir
 import CartContext from "../contexts/cartContext";
 import { Provider } from "react-redux";
 import { store } from '../redux/configure';
 import AuthContext from "../contexts/authContext";
-import AppWrapper from "./appWrapper";
+import AppWrapper from "../layout/appWrapper";
 import React from "react";
 
 function _app({ Component, pageProps }: { Component: any; pageProps: any }) {

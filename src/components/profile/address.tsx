@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import AddressCard from "../addressCard";
+import AddressCard from "./addressCard";
 import { useWindowSize } from "usehooks-ts";
 
 function Address() {

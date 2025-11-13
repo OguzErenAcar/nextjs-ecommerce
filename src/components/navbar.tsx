@@ -19,6 +19,8 @@ function Navbar() {
 
   const auth= useAuth(); 
 
+
+  
   useEffect(() => {
     cartsizeRef.current = Cart.cart.length;
   }, [Cart.cart]);

@@ -9,7 +9,7 @@ function Productdetails({ result }: { result: Product }) {
   // const {id} =router.query; 
   return (
     <>
-      <div className="flex justify-around  ">
+      <div className="flex justify-around mt-10 ">
         <div className="">
           <Image src={result.images[0]} alt="" width={300} height={300} />
         </div>

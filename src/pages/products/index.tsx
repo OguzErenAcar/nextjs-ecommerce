@@ -35,14 +35,14 @@ export default function Index({ data }: { data: Product[] }) {
   return (
     <div className="block">
       <div className="h-[100px]">
-        <SearchContDiv>
+        {/* <SearchContDiv>
           <input
             onFocus={onFocusSrch}
             className="w-[30]"
             placeholder="entry text"
           ></input>
           <SearchBtn>start</SearchBtn>
-        </SearchContDiv>
+        </SearchContDiv> */}
       </div>
       <>
         <div className="">
