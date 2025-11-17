@@ -24,7 +24,6 @@ function AppWrapper({
           (el, i) =>
             el.hasNavbar && el.path && el.path != "/" && path.includes(el.path)
         )[0];
-  console.log(page);
   const dispatch = useDispatch();
   const widthScreen = useSelector((state: RootState) => state.screen.width);
   const isFlexPage = true;

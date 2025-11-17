@@ -11,18 +11,12 @@ import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import React, { useEffect, useState, useRef } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import styles from "./../styles/components/navbar.module.scss";
-import navbar from "@/components/navbar";
-import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import { useCart } from "@/contexts/cartContext";
-import { Badge } from "@mui/material";
 import Image from "next/image";
-import { useAuth } from "@/contexts/authContext";
 import { pages } from "@/utils/router";
 import { useRouter } from "next/router";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useAuth } from "@/contexts/authContext";
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: "flex",
@@ -41,6 +35,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 }));
 
 export default function AppAppBar() {
+  const auth = useAuth();
   const Cart = useCart();
   const cartsizeRef = useRef(Cart.cart.length);
 
@@ -59,15 +54,50 @@ export default function AppAppBar() {
     router.push(el);
   };
 
-   const CartItem = (): React.ReactNode => {
+  const CartItem = (): React.ReactNode => {
     return (
       <ShoppingCartIcon
-      onClick={()=>goToLink("/cart")}
-      sx={{color:"black",cursor:"pointer",
-        marginRight:2
-      }}
-      >
-      </ShoppingCartIcon>
+        onClick={() => goToLink("/cart")}
+        sx={{ color: "black", cursor: "pointer", marginRight: 2 }}
+      ></ShoppingCartIcon>
+    );
+  };
+
+  const Logout = async() => {
+    auth?.User?.id
+ 
+     await fetch(process.env.NEXT_PUBLIC_DOMAIN+"/api/logout")
+     auth?.setUser(null);
+  };
+
+  const Profile = (): React.ReactNode => {
+    const [menu, setMenu] = useState<boolean>(false);
+    return (
+      <div className="relative cursor-pointer">
+        <div onClick={() => setMenu(!menu)}>
+          <Image
+            className="rounded-full object-cover opacity-0"
+            src={
+              "https://static.vecteezy.com/system/resources/thumbnails/032/176/191/small/business-avatar-profile-black-icon-man-of-user-symbol-in-trendy-flat-style-isolated-on-male-profile-people-diverse-face-for-social-network-or-web-vector.jpg"
+            }
+            alt=""
+            width={60}
+            height={60}
+            onLoad={(e) => e.currentTarget.classList.add("opacity-100")}
+          />
+        </div>
+        {menu && (
+          <div className="w-[150px] min-h-[100px] right-0 absolute bg-white text-black rounded-lg">
+            <MenuItem onClick={() => goToLink("/profile")}>Profile</MenuItem>
+            <MenuItem onClick={() => goToLink("/favorites")}>
+              Favorites
+            </MenuItem>
+            <MenuItem sx={{ color: "red" }} onClick={() => Logout()}>
+              Logout
+            </MenuItem>
+          </div>
+        )}
+      </div>
     );
   };
 
@@ -75,8 +105,8 @@ export default function AppAppBar() {
     return (
       <>
         <Button
-         sx={{width:110}}
-          onClick={() => goToLink("")}
+          sx={{ width: 110 }}
+          onClick={() => goToLink("/auth")}
           color="primary"
           variant="contained"
           fullWidth
@@ -86,8 +116,8 @@ export default function AppAppBar() {
 
         <Box sx={{ my: 2 }} />
         <Button
-          sx={{width:110}}
-          onClick={() => goToLink("")}
+          sx={{ width: 110 }}
+          onClick={() => goToLink("/auth/signup")}
           color="primary"
           variant="outlined"
           fullWidth
@@ -119,7 +149,7 @@ export default function AppAppBar() {
                 .filter((a) => a.onNavbar)
                 .map((el, i) => (
                   <Button
-                    onClick={() => el.path&&goToLink(el.path)}
+                    onClick={() => el.path && goToLink(el.path)}
                     key={i}
                     variant="text"
                     color="info"
@@ -137,8 +167,8 @@ export default function AppAppBar() {
               alignItems: "center",
             }}
           >
-          <CartItem />
-            <AuthGroup />
+            <CartItem />
+            {!auth?.User ? <AuthGroup /> : <Profile />}
           </Box>
 
           <Box sx={{ display: { xs: "flex", md: "none" }, gap: 1 }}>
@@ -165,7 +195,7 @@ export default function AppAppBar() {
                       <MenuItem>
                         <Button
                           className="w-full"
-                          onClick={() => el.path&&goToLink(el.path)}
+                          onClick={() => el.path && goToLink(el.path)}
                         >
                           {el.name}
                         </Button>
@@ -174,7 +204,7 @@ export default function AppAppBar() {
                   ))}
                 <Divider sx={{ my: 3 }} />
                 <CartItem />
-                <AuthGroup />
+                {!auth?.User ? <AuthGroup /> : <Profile />}
               </Box>
             </Drawer>
           </Box>

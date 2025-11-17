@@ -2,8 +2,12 @@ import React, { ChangeEvent } from "react";
 import { Product } from "@/models/productModel";
 import ProductItem from "@/components/productItem";
 import { styled } from "@mui/material";
+import { useAuth } from "@/contexts/authContext";
 
 export default function Index({ data }: { data: Product[] }) {
+
+  //sayfa engelleme
+
   const onFocusSrch = (e: ChangeEvent<HTMLInputElement>) => {
     const y = e.currentTarget.getBoundingClientRect().top;
     window.scrollTo({

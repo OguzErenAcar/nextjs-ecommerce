@@ -34,7 +34,7 @@ export const pages: pageType[] = [
         name: "favorites",
         path: "/favorites",
         isActive: true,
-        onNavbar: true,
+        onNavbar: false,
         hasNavbar: true
 
     },
@@ -50,7 +50,7 @@ export const pages: pageType[] = [
         name: "profile",
         path: "/profile",
         isActive: true,
-        onNavbar: true,
+        onNavbar: false,
         hasNavbar: true
     },
     {

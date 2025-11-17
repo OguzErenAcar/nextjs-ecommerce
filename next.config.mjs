@@ -11,7 +11,7 @@ const nextConfig = {
       ...config.resolve.alias, 
     };
     return config;
-  },
+  }, 
 };
 
 export default transpileModules([

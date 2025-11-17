@@ -1,44 +1,40 @@
-import { Profile } from '@/models/profileModel'
-import React ,{createContext,useContext,useEffect,useState} from 'react'
- 
-
-type authContextType={
-    profile:Profile|null
-    setProfile: React.Dispatch<React.SetStateAction<Profile|null>>
-}
-
-const Context =createContext<authContextType|undefined>(undefined)
-
-function AuthContext({children}:{children:React.ReactNode}) {
-
-  
-
-    
-    const [profile, setProfile]=useState<Profile | null>(null)
-    useEffect(()=>{
-        const strogePrfl=localStorage.getItem('Profile')||"{}";
-        const prf= JSON.parse(strogePrfl) as Profile
-        setProfile(prf)
-    },[])
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { User } from '../types/apiSchema';
 
 
 
-    useEffect(()=>{
-        if(profile)
-            localStorage.setItem('Profile',JSON.stringify(profile))
-        else
-            localStorage.removeItem('Profile')
+type authContextType = {
+  User: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+};
 
-    },[profile])
+const Context = createContext<authContextType | null>(null);
 
+function AuthContext({ children }: { children: React.ReactNode }) {
+  const [User, setUser] = useState<User | null>(null);
 
-    const data ={
-        profile,
-        setProfile
+  useEffect(() => {
+    const strogePrfl = localStorage.getItem("User") 
+    if(strogePrfl){
+        const prf = JSON.parse(strogePrfl) as User;
+        setUser(prf);
     }
+  }, []);
 
-    return   <Context.Provider value={data}>{children}</Context.Provider>  
+  useEffect(() => {
+
+    if (User) localStorage.setItem("User", JSON.stringify(User));
+    else localStorage.removeItem("User");
+
+  }, [User]);
+
+  const data = {
+    User,
+    setUser,
+  };
+
+  return <Context.Provider value={data}>{children}</Context.Provider>;
 }
 
-export const useAuth=()=>useContext(Context)
-export default AuthContext
+export const useAuth = () => useContext(Context);
+export default AuthContext;
