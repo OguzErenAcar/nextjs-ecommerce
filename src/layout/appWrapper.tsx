@@ -37,7 +37,7 @@ function AppWrapper({
 
   // }, []);
   return (
-    <div>
+    <div className="relative">
       {page && (
         <div className="h-[70px]">
           <NavBar />

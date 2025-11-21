@@ -19,10 +19,10 @@ import { Profile } from "../../models/profileModel";
 import { useAuth } from "@/contexts/authContext";
 import ForgotPassword from "@/components/auth/forgotPassword";
 import { FacebookIcon, GoogleIcon } from "@/components/customIcons";
-import { postuser } from '@/services/endpoints/user';
+import { postuser } from "@/services/endpoints/user";
 import { response } from "@/types/response";
 import { redirect } from "next/navigation";
-import { User } from '../../types/apiSchema';
+import { User } from "../../types/apiSchema";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -69,10 +69,10 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 export default function SignIn(props: { disableCustomTheme?: boolean }) {
   const router = useRouter();
   const auth = useAuth();
-   useEffect(() => {
-    console.log(auth?.User)
-    if(auth?.User&&auth?.User!=undefined) {
-      router.push('/')
+  useEffect(() => {
+    console.log(auth?.User);
+    if (auth?.User && auth?.User != undefined) {
+      router.push("/");
     }
     //console.log(user)
   }, [auth?.User]);
@@ -82,11 +82,12 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
 
-  
-
-
   const forgotPass = () => {
     router.push("/auth/forgotpass");
+  };
+
+  const withoutSignin = () => {
+    router.push("/");
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -126,125 +127,130 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
     return isValid;
   };
 
-
-
-  if(!auth?.User&&auth?.User==undefined)
-  return (
-    <>
-      <CssBaseline enableColorScheme />
-      <SignInContainer direction="column" justifyContent="space-between">
-        <Card variant="outlined">
-          <Typography
-            component="h1"
-            variant="h4"
-            sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
-          >
-            Sign in
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              width: "100%",
-              gap: 2,
-            }}
-          >
-            <FormControl>
-              <FormLabel htmlFor="email">Email</FormLabel>
-              <TextField
-                error={emailError}
-                helperText={emailErrorMessage}
-                id="email"
-                type="email"
-                name="email"
-                placeholder="your@email.com"
-                autoComplete="email"
-                autoFocus
-                required
-                fullWidth
-                variant="outlined"
-                color={emailError ? "error" : "primary"}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="password">Password</FormLabel>
-              <TextField
-                error={passwordError}
-                helperText={passwordErrorMessage}
-                name="password"
-                placeholder="••••••"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                autoFocus
-                required
-                fullWidth
-                variant="outlined"
-                color={passwordError ? "error" : "primary"}
-              />
-            </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              onClick={validateInputs}
+  if (!auth?.User && auth?.User == undefined)
+    return (
+      <>
+        <CssBaseline enableColorScheme />
+        <SignInContainer direction="column" justifyContent="space-between">
+          <Card variant="outlined">
+            <Typography
+              component="h1"
+              variant="h4"
+              sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
             >
               Sign in
-            </Button>
-            <Link
-              component="button"
-              type="button"
-              onClick={forgotPass}
-              variant="body2"
-              sx={{ alignSelf: "center" }}
+            </Typography>
+
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+                gap: 2,
+              }}
             >
-              Forgot your password?
-            </Link>
-          </Box>
-          <Divider>or</Divider>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <Button
-              fullWidth
-              variant="outlined"
-              onClick={() => alert("Sign in with Google")}
-              startIcon={<GoogleIcon />}
-            >
-              Sign in with Google
-            </Button>
-            <Button
-              fullWidth
-              variant="outlined"
-              onClick={() => alert("Sign in with Facebook")}
-              startIcon={<FacebookIcon />}
-            >
-              Sign in with Facebook
-            </Button>
-            <Typography sx={{ textAlign: "center" }}>
-              Don&apos;t have an account?{" "}
-              <Link
-                href="/auth/signin"
+              <FormControl>
+                <FormLabel htmlFor="email">Email</FormLabel>
+                <TextField
+                  error={emailError}
+                  helperText={emailErrorMessage}
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder="your@email.com"
+                  autoComplete="email"
+                  autoFocus
+                  required
+                  fullWidth
+                  variant="outlined"
+                  color={emailError ? "error" : "primary"}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel htmlFor="password">Password</FormLabel>
+                <TextField
+                  error={passwordError}
+                  helperText={passwordErrorMessage}
+                  name="password"
+                  placeholder="••••••"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  autoFocus
+                  required
+                  fullWidth
+                  variant="outlined"
+                  color={passwordError ? "error" : "primary"}
+                />
+              </FormControl>
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                onClick={validateInputs}
+              >
+                Sign in
+              </Button>
+                 <Link
+                component="button"
+                type="button"
+                onClick={withoutSignin}
                 variant="body2"
                 sx={{ alignSelf: "center" }}
               >
-                Sign up
+                Continue Without Sign In
               </Link>
-            </Typography>
-          </Box>
-        </Card>
-      </SignInContainer>
-    </>
-  );
+              <Link
+                component="button"
+                type="button"
+                onClick={forgotPass}
+                variant="body2"
+                sx={{ alignSelf: "center" }}
+              >
+                Forgot your password?
+              </Link>
+            </Box>
+            <Divider>or</Divider>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              <Button
+                fullWidth
+                variant="outlined"
+                onClick={() => alert("Sign in with Google")}
+                startIcon={<GoogleIcon />}
+              >
+                Sign in with Google
+              </Button>
+              <Button
+                fullWidth
+                variant="outlined"
+                onClick={() => alert("Sign in with Facebook")}
+                startIcon={<FacebookIcon />}
+              >
+                Sign in with Facebook
+              </Button>
+              <Typography sx={{ textAlign: "center" }}>
+                Don&apos;t have an account?{" "}
+                <Link
+                  href="/auth/signin"
+                  variant="body2"
+                  sx={{ alignSelf: "center" }}
+                >
+                  Sign up
+                </Link>
+              </Typography>
+            </Box>
+          </Card>
+        </SignInContainer>
+      </>
+    );
 
-  return(<div></div>);
-
+  return <div></div>;
 }
-
-

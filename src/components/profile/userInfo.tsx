@@ -1,178 +1,270 @@
-import React, { useState } from 'react'
-import { RootState } from '../../redux/configure';
-import { useSelector } from 'react-redux';
-import { Button } from '@mui/material';
-import {Formik,Field , Form, FormikHelpers} from 'formik'
-import { json } from 'stream/consumers';
-
+import React from "react";
+import { Button, Card, CardContent, Typography, Box, Divider } from "@mui/material";
+import { Formik, Field, Form, FormikHelpers } from "formik";
+import { Person, Lock, Email, Phone, CalendarToday } from "@mui/icons-material";
 
 function UserInfo() {
-  //telefon ve şifre ekle ,burası bilgi güncelleme sayfası 
-
-  const widthScreen =useSelector((state:RootState)=>state.screen.width)
-
-interface Values{
-  name:string,
-  lastname:string,
-  email:string,
-  number:number|null,
-  dateOfBirth:Date|null
-}
-
-interface PasswordValues{
-  Password:string,
-  newPassword:string,
-  newPasswordAgain:string,
-}
-
-
-  const sendInfoForm=(values:Values)=>{
-    alert(JSON.stringify(values,null,2))
+  interface Values {
+    name: string;
+    lastname: string;
+    email: string;
+    number: string;
+    dateOfBirth: string;
   }
-  const sendPasswordForm=(values:PasswordValues)=>{
-    alert(JSON.stringify(values,null,2))
+
+  interface PasswordValues {
+    currentPassword: string;
+    newPassword: string;
+    newPasswordAgain: string;
   }
+
+  const sendInfoForm = (values: Values) => {
+    alert(JSON.stringify(values, null, 2));
+  };
   
+  const sendPasswordForm = (values: PasswordValues) => {
+    alert(JSON.stringify(values, null, 2));
+  };
+
   return (
-    <div style={{height:600}} className='w-full flex items-center '>
-      <div className=' flex justify-between h-[95%]  '>
-      <div style={{width:'45%' }} className={`  sm:max-w-xl`}>
-        <div className=" h-full relative bg-white mx-8 md:mx-0 shadow rounded-l sm:p-10" >
-          <div className="max-w-md mx-auto">
-          <Formik <Values>
-            initialValues={{
-                  name:"",
-                  lastname:"",
-                  email:"",
-                  number:null,
-                  dateOfBirth:null
-            }}
-             onSubmit={(
-              values: Values,
-              { setSubmitting }: FormikHelpers<Values>
-                ) => {
-              setTimeout(() => {
-                sendInfoForm(values)
-               // alert(JSON.stringify(values, null, 30));
-                setSubmitting(false);
-              }, 500);
-            }}>
-          <Form>
-            <div className="  grid grid-cols-1 sm:grid-cols-2 gap-1 ">
-              <div>
-                <label className="font-semibold text-sm text-gray-600 pb-1 block"> Name</label>
-                <Field
-                  className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-                  type="text"
-                  name="name"
-                  />
-              </div>
-              <div>
-                <label  className="font-semibold text-sm text-gray-600 pb-1 block" >Last Name </label >
-                <Field
-                  className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-                  type="text"
-                  name="lastname"
-                  />
-              </div>
+    <div className="w-full max-w-[1000px] mx-auto p-4">
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Bilgi Güncelleme Formu */}
+        <Card className="flex-1 hover:shadow-lg transition-shadow">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-3 mb-6">
+              <Person color="primary" />
+              <Typography variant="h5" className="font-bold">
+                Personal Information
+              </Typography>
             </div>
-              <div>
-                <label  className="font-semibold text-sm text-gray-600 pb-1 block" >Email</label >
-                <Field
-                  className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-                  type="text"
-                  name="email"
-                  />
-              </div>
-              <div>
-                <label
-                  className="font-semibold text-sm text-gray-600 pb-1 block" >Number</label  >
-                <Field
-                  className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-                  type="number"
-                  name="number"
-                  />
-              </div>
-            <div className=" grid grid-cols-1  gap-1">
-              <div>
-                <label
-                  className="font-semibold text-sm text-gray-600 pb-1 block">Date of Birth</label >
-                <Field
-                  className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-                  type="date"
-                  name="dateOfBirth"
-                  />
-              </div>
-            </div>
-            <div>
-              <Button sx={{backgroundColor:"#b3e5fc"}}
-                type='submit'
-              > Update </Button>
-            </div>
-            </Form>
-          </Formik>
 
-          </div>
-        </div>
-      </div>
-      <div style={{width:'45%'}} className="  sm:max-w-xl ">
-        <div className="h-full relative  bg-white mx-8 md:mx-0 shadow rounded-l sm:p-10" >
-          <Formik <PasswordValues>
-            initialValues={{
-                Password:"",
-                newPassword:"",
-                newPasswordAgain:"",
-            }}
-            onSubmit={(values:PasswordValues,
-              {setSubmitting}:FormikHelpers<PasswordValues>)=>{
-              setTimeout(()=>{
-                sendPasswordForm(values)
-                setSubmitting(false)
-              },500)
-            }}
-          >
-            <Form>
-          <div className="max-w-md mx-auto">
-              <div>
-                <label  className="font-semibold text-sm text-gray-600 pb-1 block" >Password</label >
-                <Field
-                  className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-                  type="Password"
-                  name="Password"
-                  />
-              </div>
-              <div>
-                <label
-                  className="font-semibold text-sm text-gray-600 pb-1 block" >New Password</label  >
-                <Field
-                  className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-                  type="Password"
-                  name="newPassword"
-                  />
-              </div>
-               <div>
-                <label
-                  className="font-semibold text-sm text-gray-600 pb-1 block" >New Password (Again)</label  >
-                <Field
-                  className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-                  type="Password"
-                  name="newPasswordAgain"
-                  />
-                <span className='font-serif text-xs '>New Password must include number and uppercase</span>
-              </div>
-          
-            <div>
-              <Button type="submit" sx={{backgroundColor:"#b3e5fc" ,marginTop:3 }}> Update </Button>
+            <Formik<Values>
+              initialValues={{
+                name: "John",
+                lastname: "Doe",
+                email: "john.doe@example.com",
+                number: "+1 (555) 123-4567",
+                dateOfBirth: "1990-01-01",
+              }}
+              onSubmit={(
+                values: Values,
+                { setSubmitting }: FormikHelpers<Values>
+              ) => {
+                setTimeout(() => {
+                  sendInfoForm(values);
+                  setSubmitting(false);
+                }, 500);
+              }}
+            >
+              {({ isSubmitting }) => (
+                <Form className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="font-semibold text-sm text-gray-600 pb-2 block">
+                        First Name
+                      </label>
+                      <Field
+                        className="border rounded-lg px-4 py-3 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-colors"
+                        type="text"
+                        name="name"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-semibold text-sm text-gray-600 pb-2 block">
+                        Last Name
+                      </label>
+                      <Field
+                        className="border rounded-lg px-4 py-3 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-colors"
+                        type="text"
+                        name="lastname"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Email fontSize="small" color="action" />
+                      <label className="font-semibold text-sm text-gray-600">
+                        Email Address
+                      </label>
+                    </div>
+                    <Field
+                      className="border rounded-lg px-4 py-3 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-colors"
+                      type="email"
+                      name="email"
+                    />
+                  </div>
+                  
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Phone fontSize="small" color="action" />
+                      <label className="font-semibold text-sm text-gray-600">
+                        Phone Number
+                      </label>
+                    </div>
+                    <Field
+                      className="border rounded-lg px-4 py-3 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-colors"
+                      type="tel"
+                      name="number"
+                    />
+                  </div>
+                  
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <CalendarToday fontSize="small" color="action" />
+                      <label className="font-semibold text-sm text-gray-600">
+                        Date of Birth
+                      </label>
+                    </div>
+                    <Field
+                      className="border rounded-lg px-4 py-3 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-colors"
+                      type="date"
+                      name="dateOfBirth"
+                    />
+                  </div>
+                  
+                  <div className="pt-4">
+                    <Button 
+                      variant="contained"
+                      sx={{ 
+                        backgroundColor: "#1976d2", 
+                        width: "100%",
+                        py: 1.5,
+                        "&:hover": {
+                          backgroundColor: "#1565c0"
+                        }
+                      }} 
+                      type="submit"
+                      disabled={isSubmitting}
+                    >
+                      Update Personal Information
+                    </Button>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </CardContent>
+        </Card>
+
+        {/* Şifre Değiştirme Formu */}
+        <Card className="flex-1 hover:shadow-lg transition-shadow">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-3 mb-6">
+              <Lock color="primary" />
+              <Typography variant="h5" className="font-bold">
+                Change Password
+              </Typography>
             </div>
-          </div>
-        </Form>
-      </Formik>
-        </div>
-        </div>
+
+            <Formik<PasswordValues>
+              initialValues={{
+                currentPassword: "",
+                newPassword: "",
+                newPasswordAgain: "",
+              }}
+              onSubmit={(
+                values: PasswordValues,
+                { setSubmitting }: FormikHelpers<PasswordValues>
+              ) => {
+                setTimeout(() => {
+                  sendPasswordForm(values);
+                  setSubmitting(false);
+                }, 500);
+              }}
+            >
+              {({ isSubmitting }) => (
+                <Form className="space-y-4">
+                  <div>
+                    <label className="font-semibold text-sm text-gray-600 pb-2 block">
+                      Current Password
+                    </label>
+                    <Field
+                      className="border rounded-lg px-4 py-3 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-colors"
+                      type="password"
+                      name="currentPassword"
+                      placeholder="Enter your current password"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="font-semibold text-sm text-gray-600 pb-2 block">
+                      New Password
+                    </label>
+                    <Field
+                      className="border rounded-lg px-4 py-3 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-colors"
+                      type="password"
+                      name="newPassword"
+                      placeholder="Enter new password"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="font-semibold text-sm text-gray-600 pb-2 block">
+                      Confirm New Password
+                    </label>
+                    <Field
+                      className="border rounded-lg px-4 py-3 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-colors"
+                      type="password"
+                      name="newPasswordAgain"
+                      placeholder="Confirm new password"
+                    />
+                  </div>
+
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <Typography variant="caption" className="font-semibold text-blue-800 block mb-1">
+                      Password Requirements:
+                    </Typography>
+                    <ul className="text-xs text-blue-700 space-y-1">
+                      <li>• At least 8 characters long</li>
+                      <li>• Include at least one uppercase letter</li>
+                      <li>• Include at least one number</li>
+                      <li>• Include at least one special character</li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-2">
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      sx={{ 
+                        backgroundColor: "#1976d2", 
+                        width: "100%",
+                        py: 1.5,
+                        "&:hover": {
+                          backgroundColor: "#1565c0"
+                        }
+                      }}
+                      disabled={isSubmitting}
+                    >
+                      Update Password
+                    </Button>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </CardContent>
+        </Card>
       </div>
 
+      {/* Account Security Note */}
+      <Card className="mt-6 bg-gray-50">
+        <CardContent className="p-4">
+          <div className="flex items-start gap-3">
+            <Lock color="action" fontSize="small" />
+            <div>
+              <Typography variant="subtitle2" className="font-semibold">
+                Account Security
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                We recommend updating your password regularly and enabling two-factor authentication for enhanced security.
+              </Typography>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
-  )
+  );
 }
 
-export default UserInfo
+export default UserInfo;

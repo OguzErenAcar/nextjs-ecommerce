@@ -63,11 +63,11 @@ export default function AppAppBar() {
     );
   };
 
-  const Logout = async() => {
-    auth?.User?.id
- 
-     await fetch(process.env.NEXT_PUBLIC_DOMAIN+"/api/logout")
-     auth?.setUser(null);
+  const Logout = async () => {
+    auth?.User?.id;
+
+    await fetch(process.env.NEXT_PUBLIC_DOMAIN + "/api/logout");
+    auth?.setUser(null);
   };
 
   const Profile = (): React.ReactNode => {
@@ -133,10 +133,22 @@ export default function AppAppBar() {
       position="fixed"
       enableColorOnDark
       sx={{
+        zIndex: 1,
         boxShadow: 0,
         bgcolor: "transparent",
         backgroundImage: "none",
         mt: "calc(var(--template-frame-height, 0px) + 28px)",
+        width: {
+          xs: "115px", 
+          md: "auto", 
+        },
+        position: {
+          xs: "absolute",
+          md: "static",
+        },
+        left: {
+          xs: 0,
+        },
       }}
     >
       <Container maxWidth="lg">

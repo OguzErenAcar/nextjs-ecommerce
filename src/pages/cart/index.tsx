@@ -1,5 +1,12 @@
+import { useRouter } from "next/router";
+
+
+
 export default function CartPage() {
-  // Sepet öğeleri (örnek veri)
+
+
+  const router=useRouter();
+
   const cartItems = [
     {
       id: 1,
@@ -29,6 +36,12 @@ export default function CartPage() {
 
   // Toplam fiyat hesaplama
   const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  
+  
+  const  PayButton=()=> {
+    router.push("cart/infosdelivery")
+  }
+
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -89,7 +102,9 @@ export default function CartPage() {
                   </div>
                 </div>
 
-                <button className="w-full bg-purple-600 text-white py-4 rounded-lg font-bold text-lg hover:bg-purple-700 transition-colors">
+                <button 
+                onClick={PayButton}
+                className="w-full cursor-pointer  bg-purple-600 text-white py-4 rounded-lg font-bold text-lg hover:bg-purple-700 transition-colors">
                   Güvenli Ödeme Yap
                 </button>
 
@@ -108,7 +123,7 @@ export default function CartPage() {
 }
 
 // Sepet Öğesi Componenti
-function CartItem({ item }) {
+function CartItem({ item }:{item:any}) {
   return (
     <div className="w-full bg-white rounded-xl shadow-sm overflow-hidden max-h-[250px]">
       <div className="flex h-full">
