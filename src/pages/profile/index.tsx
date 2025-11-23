@@ -1,5 +1,12 @@
 import { useAuth } from "@/contexts/authContext";
-import { Button, styled, useMediaQuery, IconButton, Drawer, Box } from "@mui/material";
+import {
+  Button,
+  styled,
+  useMediaQuery,
+  IconButton,
+  Drawer,
+  Box,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import UserInfo from "../../components/profile/userInfo";
 import Orders from "@/components/profile/orders";
@@ -11,13 +18,17 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 import CloseIcon from "@mui/icons-material/Close";
 import { keyframes } from "@emotion/react";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 function Profile() {
   const auth = useAuth();
   const isMediumScreen = useMediaQuery("(min-width:900px)"); // md breakpoint
-  
+
   const Logout = () => {
     auth?.setUser(null);
+    const resetAuth = async () => {
+      await fetch(process.env.NEXT_PUBLIC_DOMAIN + "/api/logout");
+    };
+    resetAuth();
   };
 
   const [activeComponent, setActiveComponent] = useState<React.ReactNode>(
@@ -117,20 +128,15 @@ function Profile() {
         {/* Mobile için menu butonu - sadece medium'dan küçük ekranlarda gözüksün */}
         {!isMediumScreen && (
           <div className="absolute right-10 top-10 justify-end mb-4">
-            <IconButton 
-              onClick={toggleDrawer(true)}
-              sx={{ 
-            
-              }}
-            >
+            <IconButton onClick={toggleDrawer(true)} sx={{}}>
               <AccountCircleIcon />
             </IconButton>
           </div>
         )}
-   
+
         <div className="flex  justify-between w-full">
           <div className="w-[1000px] bg-gray-100  p-10">{activeComponent}</div>
-          
+
           {/* Medium ve büyük ekranlarda normal sidebar */}
           {isMediumScreen && (
             <div className="hidden md:block  ">
@@ -145,8 +151,8 @@ function Profile() {
           open={drawerOpen}
           onClose={toggleDrawer(false)}
           sx={{
-            '& .MuiDrawer-paper': {
-              boxSizing: 'border-box',
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
               width: 280,
             },
           }}

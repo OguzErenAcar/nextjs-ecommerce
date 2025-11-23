@@ -69,6 +69,14 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 export default function SignIn(props: { disableCustomTheme?: boolean }) {
   const router = useRouter();
   const auth = useAuth();
+
+ useEffect(() => {
+    const resetAuth=async()=>{
+      await fetch(process.env.NEXT_PUBLIC_DOMAIN+"/api/logout")
+    }
+    resetAuth();
+  }, []);
+  
   useEffect(() => {
     console.log(auth?.User);
     if (auth?.User && auth?.User != undefined) {
