@@ -2,7 +2,6 @@ import React from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link';
 import styles from './../styles/components/navbar.module.scss'
-import navbar from '@/components/navbar';
 function Navbar() {
 
   const encpath = usePathname()||"";
